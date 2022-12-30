@@ -38,6 +38,7 @@ async function newsApiOrg () {
         language: 'id',
         sortBy: 'relevancy',
         page: 1,
+        pageSize:10
     });
     return response.articles.map((val) => {
         return {
