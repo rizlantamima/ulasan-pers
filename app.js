@@ -64,22 +64,22 @@ app.use(authMiddleware(jwtsecret))
 app.get('/category', async (req, res)  => {
     res.status(200).json([
         {
-            id:"Indonesia,viral",
+            id:"viral",
             title:"Yang viral-viral"
         },{
-            id:"Indonesia,culture",
+            id:"culture",
             title:"Budaya"
         },
         {
-            id:"Indonesia,sport",
+            id:"sport",
             title:"Yang sehat sehat"
         },
         {
-            id:"Indonesia,politic",
+            id:"politic",
             title:"Politic"
         },
         {
-            id:"Indonesia,technology",
+            id:"technology",
             title:"Teknologi"
         },
         
@@ -87,9 +87,9 @@ app.get('/category', async (req, res)  => {
 })
 app.get('/news', async (req, res)  => {
     try {
-        let query = req.query.q
-        if(query == ""){
-            query = "Indonesia"
+        let query = "Indonesia"
+        if (req.query.q) {
+            query = req.query.q
         }
         data_news = await newsServices.newsApiOrg(query)
         data = {
