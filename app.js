@@ -91,6 +91,7 @@ app.get('/news', async (req, res)  => {
         if (req.query.q) {
             query = req.query.q
         }
+        
         data_news = await newsServices.newsApiOrg(query)
         data = {
             last_generated: new Date(),
