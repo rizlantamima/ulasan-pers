@@ -91,7 +91,7 @@ app.get('/news', async (req, res)  => {
         if(query == ""){
             query = "Indonesia"
         }
-        data_news = await newsServices.newsApiOrg()
+        data_news = await newsServices.newsApiOrg(query)
         data = {
             last_generated: new Date(),
             news: data_news
