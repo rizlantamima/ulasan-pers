@@ -61,7 +61,30 @@ app.post('/sign-in', (req, res) => {
 app.use(authMiddleware(jwtsecret))
 
 
-
+app.get('/category', async (req, res)  => {
+    res.status(200).json([
+        {
+            id:"Indonesia,viral",
+            title:"Yang viral-viral"
+        },{
+            id:"Indonesia,culture",
+            title:"Budaya"
+        },
+        {
+            id:"Indonesia,sport",
+            title:"Yang sehat sehat"
+        },
+        {
+            id:"Indonesia,politic",
+            title:"Politic"
+        },
+        {
+            id:"Indonesia,technology",
+            title:"Teknologi"
+        },
+        
+    ])
+})
 app.get('/news', async (req, res)  => {
     try {
         if (typeof app.locals.data !== 'undefined' && app.locals.data !== null && typeof app.locals.data.last_generated !== 'undefined' && app.locals.data.last_generated !== null){
