@@ -44,7 +44,7 @@ app.post('/sign-in', (req, res) => {
         const payload = {
             username:reqUsername
         }
-
+        
         // 12jam dalam sec = 36000
         const token = jwt.sign(payload, jwtsecret, { expiresIn: '36000s' });
         res_status = 200
@@ -87,41 +87,62 @@ app.get('/category', async (req, res)  => {
 })
 app.get('/news', async (req, res)  => {
     try {
-        if (typeof app.locals.data !== 'undefined' && app.locals.data !== null && typeof app.locals.data.last_generated !== 'undefined' && app.locals.data.last_generated !== null){
-            last_generated = app.locals.data.last_generated
-            now = new Date()
-            time_diff_second = Math.round((now - last_generated) / 1000);
-            time_diff_minutes = Math.round(time_diff_second / 60);
-            
-            response = app.locals.data
-            response.resource = 'local-memory'
-            if (time_diff_minutes > 5){
-                data_news = await newsServices.newsApiOrg()
-                data = {
-                    last_generated: new Date(),
-                    news: data_news
-                }
-                app.locals.data = data
-                response = app.locals.data                
-                response.resource = 'api'
-            }
-            res.send(response)
-        }else{
-            data_news = await newsServices.newsApiOrg()
-            data = {
-                last_generated: new Date(),
-                news: data_news
-            }
-            
-            app.locals.data = data
-            response = app.locals.data
-            response.resource = 'api'
-            res.send(response);
+        let query = req.query.q
+        if(query == ""){
+            query = "Indonesia"
         }
+        data_news = await newsServices.newsApiOrg()
+        data = {
+            last_generated: new Date(),
+            news: data_news
+        }
+        
+        app.locals.data = data
+        response = app.locals.data
+        response.resource = 'api'
+        res.send(response);
     } catch (error) {
         res.status(400).send(error);
     }
 })
+
+// app.get('/news', async (req, res)  => {
+//     try {
+//         if (typeof app.locals.data !== 'undefined' && app.locals.data !== null && typeof app.locals.data.last_generated !== 'undefined' && app.locals.data.last_generated !== null){
+//             last_generated = app.locals.data.last_generated
+//             now = new Date()
+//             time_diff_second = Math.round((now - last_generated) / 1000);
+//             time_diff_minutes = Math.round(time_diff_second / 60);
+
+//             response = app.locals.data
+//             response.resource = 'local-memory'
+//             if (time_diff_minutes > 5){
+//                 data_news = await newsServices.newsApiOrg()
+//                 data = {
+//                     last_generated: new Date(),
+//                     news: data_news
+//                 }
+//                 app.locals.data = data
+//                 response = app.locals.data                
+//                 response.resource = 'api'
+//             }
+//             res.send(response)
+//         }else{
+//             data_news = await newsServices.newsApiOrg()
+//             data = {
+//                 last_generated: new Date(),
+//                 news: data_news
+//             }
+
+//             app.locals.data = data
+//             response = app.locals.data
+//             response.resource = 'api'
+//             res.send(response);
+//         }
+//     } catch (error) {
+//         res.status(400).send(error);
+//     }
+// })
 
 app.use(function (error, request, response, next) {
     console.error(error.stack);

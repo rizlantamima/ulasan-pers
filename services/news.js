@@ -20,7 +20,7 @@ async function newsApiIndonesian(){
     })
 }
 
-async function newsApiOrg () {
+async function newsApiOrg (query) {
     
     const today = new Date()
     const today_formated = today.toISOString().substring(0, 10);
@@ -32,7 +32,7 @@ async function newsApiOrg () {
     const newsapi = new NewsAPI(process.env.NEWS_API_TOKEN);
     
     const response  = await newsapi.v2.everything({
-        q:'Indonesia',
+        q:query,
         from: a_week_ago_formated,
         to: today_formated,
         language: 'id',
