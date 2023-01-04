@@ -62,28 +62,30 @@ app.use(authMiddleware(jwtsecret))
 
 
 app.get('/category', async (req, res)  => {
-    res.status(200).json([
-        {
-            id:"viral",
-            title:"Yang viral-viral"
-        },{
-            id:"culture",
-            title:"Budaya"
-        },
-        {
-            id:"sport",
-            title:"Yang sehat sehat"
-        },
-        {
-            id:"politic",
-            title:"Politic"
-        },
-        {
-            id:"technology",
-            title:"Teknologi"
-        },
-        
-    ])
+    res.setTimeout(500, () => {
+        res.status(200).json([
+            {
+                id:"viral",
+                title:"Yang viral-viral"
+            },{
+                id:"culture",
+                title:"Budaya"
+            },
+            {
+                id:"sport",
+                title:"Yang sehat sehat"
+            },
+            {
+                id:"politic",
+                title:"Politic"
+            },
+            {
+                id:"technology",
+                title:"Teknologi"
+            },
+            
+        ])
+    });
 })
 app.get('/news', async (req, res)  => {
     try {
