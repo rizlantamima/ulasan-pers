@@ -91,7 +91,7 @@ app.get('/news', async (req, res)  => {
         if (req.query.q) {
             query = req.query.q
         }
-        
+
         data_news = await newsServices.newsApiOrg(query)
         data = {
             last_generated: new Date(),
@@ -101,7 +101,10 @@ app.get('/news', async (req, res)  => {
         app.locals.data = data
         response = app.locals.data
         response.resource = 'api'
-        res.send(response);
+        res.setTimeout(2000, () => {
+            res.send(response);
+        });
+        
     } catch (error) {
         res.status(400).send(error);
     }
