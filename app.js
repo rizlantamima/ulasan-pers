@@ -62,30 +62,31 @@ app.use(authMiddleware(jwtsecret))
 
 
 app.get('/category', async (req, res)  => {
-    res.setTimeout(500, () => {
-        res.status(200).json([
-            {
-                id:"viral",
-                title:"Yang viral-viral"
-            },{
-                id:"culture",
-                title:"Budaya"
-            },
-            {
-                id:"sport",
-                title:"Yang sehat sehat"
-            },
-            {
-                id:"politic",
-                title:"Politic"
-            },
-            {
-                id:"technology",
-                title:"Teknologi"
-            },
-            
-        ])
-    });
+    res.status(200).json([
+        {
+            id:"",
+            title:"Beranda"
+        },{
+            id:"viral",
+            title:"Yang viral-viral"
+        },{
+            id:"culture",
+            title:"Budaya"
+        },
+        {
+            id:"sport",
+            title:"Yang sehat sehat"
+        },
+        {
+            id:"politic",
+            title:"Politic"
+        },
+        {
+            id:"technology",
+            title:"Teknologi"
+        },
+        
+    ])
 })
 app.get('/news', async (req, res)  => {
     try {
@@ -103,9 +104,7 @@ app.get('/news', async (req, res)  => {
         app.locals.data = data
         response = app.locals.data
         response.resource = 'api'
-        res.setTimeout(2000, () => {
-            res.send(response);
-        });
+        res.send(response);
         
     } catch (error) {
         res.status(400).send(error);
